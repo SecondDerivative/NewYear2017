@@ -55,12 +55,25 @@ namespace SFMLApp
             MainForm.Draw(TextOut);
         }
 
+        private int CountChar(string s, char c)
+        {
+            int ans = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == c)
+                    ++ans;
+            }
+            return ans;
+        }
+
         public void DrawNote(Note note)
         {
             DrawText(note.Message, 180, 115, 20, Fonts.Arial, Color.Black);
+            int cntline = 1 + CountChar(note.Message, '\n'); ;
             for (int i = 0; i < note.CanSay.Count; ++i)
             {
-                DrawText((i + 1) + ": " + note.CanSay[i].Item1, 180, (i + 1) * 30 + 115, 20, Fonts.Arial, Color.Black);
+                DrawText((i + 1) + ": " + note.CanSay[i].Item1, 180, (cntline) * 30 + 115, 20, Fonts.Arial, Color.Black);
+                cntline += 1 + CountChar(note.CanSay[i].Item1, '\n');
             }
             if (note.CanSay.Count == 0)
                 DrawText("End of the game... Enter 1 for starn new game", 180, 30 + 115, 20, Fonts.Arial, Color.Black);

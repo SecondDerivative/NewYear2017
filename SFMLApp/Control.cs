@@ -7,6 +7,7 @@ using SFML.Window;
 using SFML.Audio;
 using SFML.System;
 using SFML.Graphics;
+using System.IO;
 
 namespace SFMLApp
 {
@@ -24,12 +25,27 @@ namespace SFMLApp
             this.Heigth = Heigth;
             view = new View(Width, Heigth);
             view.InitEvents(Close, KeyDown, MouseDown, MouseUp, MouseMove);
-            Note[] allNote = new Note[3];
-            allNote[0] = new Note("Это обучение. Чтобы выбрать первый вариант, нажмине 1");
-            allNote[1] = new Note("Вы проснулись в холодной пещере. Ваша голова болит, вы ничего не помните");
-            allNote[2] = new Note("End");
-            allNote[0].CanSay.Add(new Tuple<string, Note>("Продолжить", allNote[1]));
-            allNote[0].CanSay.Add(new Tuple<string, Note>("Заново", allNote[0]));
+            StreamReader fl = File.OpenText("data/data.txt");
+            int cnt = int.Parse(fl.ReadLine());
+            Note[] allNote = new Note[cnt];
+            List<Tuple<int, string> >[] mem = new List<Tuple<int, string> >[cnt];
+            for (int i = 0; i < cnt; ++i)
+            {
+                string s = fl.ReadLine();
+                allNote[i] = new Note(s.Replace('#', '\n'));
+                mem[i] = new List<Tuple<int, string>>();
+                int cntedge = int.Parse(fl.ReadLine());
+                for (int j = 0; j < cntedge; ++j)
+                {
+                    string a = fl.ReadLine().Replace('#', '\n');
+                    int yk = int.Parse(fl.ReadLine());
+                    mem[i].Add(new Tuple<int, string>(yk, a));
+                }
+            }
+            for (int i = 0; i < cnt; ++i)
+                for (int j = 0; j < mem[i].Count; j++)
+                    allNote[i].CanSay.Add(new Tuple<string, Note>(mem[i][j].Item2, allNote[mem[i][j].Item1]));
+            fl.Close();
             StartNote = allNote[0];
             dialogue = new Dialogue(StartNote);
         }
