@@ -46,18 +46,19 @@ namespace SFMLApp
             Text TextOut = new Text(s, Font);
             TextOut.CharacterSize = (uint)size;
             TextOut.Color = cl;
+            TextOut.Position = new Vector2f(x, y);
             MainForm.Draw(TextOut);
         }
 
         public void DrawNote(Note note)
         {
-            DrawText(note.Message, 20, 20, 20, Fonts.Arial, Color.White);
+            DrawText(note.Message, 20, 20, 20, Fonts.Arial, Color.Black);
             for (int i = 0; i < note.CanSay.Count; ++i)
             {
-                DrawText((i + 1) + ": " + note.CanSay[i].Item1, 20, (i + 1) * 30 + 20, 20, Fonts.Arial, Color.White);
+                DrawText((i + 1) + ": " + note.CanSay[i].Item1, 20, (i + 1) * 30 + 20, 20, Fonts.Arial, Color.Black);
             }
             if (note.CanSay.Count == 0)
-                DrawText("End of the game... Enter 1 for starn new game", 20, 30 + 20, 20, Fonts.Arial, Color.White);
+                DrawText("End of the game... Enter 1 for starn new game", 20, 30 + 20, 20, Fonts.Arial, Color.Black);
         }
     }
 }

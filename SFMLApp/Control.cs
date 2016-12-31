@@ -37,7 +37,7 @@ namespace SFMLApp
 
         public void UpDate(long time)
         {
-            //view.Clear(Color.Black);
+            view.Clear(Color.White);
             view.DrawNote(dialogue.now);
             if (time > 0)
                 view.DrawText((1000 / time).ToString(), 5, 5, 10, Fonts.Arial, Color.White);

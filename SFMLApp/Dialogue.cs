@@ -15,7 +15,7 @@ namespace SFMLApp
         }
         public void Next(int t)
         {
-
+            now = now.CanSay[t].Item2;
         }
         public bool IsEnd()
         {
