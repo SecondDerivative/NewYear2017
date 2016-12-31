@@ -25,12 +25,11 @@ namespace SFMLApp
             view = new View(Width, Heigth);
             view.InitEvents(Close, KeyDown, MouseDown, MouseUp, MouseMove);
             Note[] allNote = new Note[3];
-            allNote[0] = new Note("Begin");
-            allNote[1] = new Note("Mid");
+            allNote[0] = new Note("Это обучение. Чтобы выбрать первый вариант, нажмине 1");
+            allNote[1] = new Note("Вы проснулись в холодной пещере. Ваша голова болит, вы ничего не помните");
             allNote[2] = new Note("End");
-            allNote[0].CanSay.Add(new Tuple<string, Note>("go 2", allNote[1]));
-            allNote[0].CanSay.Add(new Tuple<string, Note>("go 3", allNote[2]));
-            allNote[1].CanSay.Add(new Tuple<string, Note>("go 3", allNote[2]));
+            allNote[0].CanSay.Add(new Tuple<string, Note>("Продолжить", allNote[1]));
+            allNote[0].CanSay.Add(new Tuple<string, Note>("Заново", allNote[0]));
             StartNote = allNote[0];
             dialogue = new Dialogue(StartNote);
         }

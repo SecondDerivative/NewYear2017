@@ -15,6 +15,8 @@ namespace SFMLApp
         public RenderWindow MainForm { get; private set; }
         private int Width, Heigth;
 
+        Sprite fon;
+
         public void InitEvents(EventHandler Close, EventHandler<KeyEventArgs> KeyDown, EventHandler<MouseButtonEventArgs> MouseDown, EventHandler<MouseButtonEventArgs> MouseUp, EventHandler<MouseMoveEventArgs> MouseMove)
         {
             MainForm.Closed += Close;
@@ -28,7 +30,9 @@ namespace SFMLApp
         {
             this.Width = Width;
             this.Heigth = Heigth;
-            MainForm = new RenderWindow(new VideoMode((uint)Width, (uint)Heigth), "SFML.net", Styles.Titlebar | Styles.Close);
+            MainForm = new RenderWindow(new VideoMode((uint)Width, (uint)Heigth), "NewYear 2017", Styles.Titlebar | Styles.Close);
+            fon = new Sprite(new Texture("data/fon.png"));
+            fon.Position = new Vector2f(0, 0);
         }
 
         public void Clear()
@@ -38,7 +42,8 @@ namespace SFMLApp
 
         public void Clear(Color cl)
         {
-            MainForm.Clear(cl);
+            //MainForm.Clear(cl);
+            MainForm.Draw(fon);
         }
 
         public void DrawText(string s, int x, int y, int size, Font Font, Color cl)
@@ -52,13 +57,13 @@ namespace SFMLApp
 
         public void DrawNote(Note note)
         {
-            DrawText(note.Message, 20, 20, 20, Fonts.Arial, Color.Black);
+            DrawText(note.Message, 180, 115, 20, Fonts.Arial, Color.Black);
             for (int i = 0; i < note.CanSay.Count; ++i)
             {
-                DrawText((i + 1) + ": " + note.CanSay[i].Item1, 20, (i + 1) * 30 + 20, 20, Fonts.Arial, Color.Black);
+                DrawText((i + 1) + ": " + note.CanSay[i].Item1, 180, (i + 1) * 30 + 115, 20, Fonts.Arial, Color.Black);
             }
             if (note.CanSay.Count == 0)
-                DrawText("End of the game... Enter 1 for starn new game", 20, 30 + 20, 20, Fonts.Arial, Color.Black);
+                DrawText("End of the game... Enter 1 for starn new game", 180, 30 + 115, 20, Fonts.Arial, Color.Black);
         }
     }
 }
